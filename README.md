@@ -125,8 +125,8 @@ var app = new Vue({
 <style>
   .list-container {
     margin: 0 auto;
-    height: 700px;
-    width: 600px;
+    height: 500px;
+    width: 400px;
     overflow-y: auto;
   }
   .list-item {
