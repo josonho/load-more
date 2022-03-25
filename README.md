@@ -36,9 +36,7 @@ directives: {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
 </head>
 <body>
   <div id="app">
@@ -64,21 +62,11 @@ var app = new Vue({
       如果为true则认为到达底部 */ 
     loadMore: {
       inserted(el, binding) {
-        const scrollFn = () => {
-          // 子级高度
-          let scrollH = 0
-          $(el).children().each((idx, item) => {
-            scrollH += $(item).get(0).offsetHeight
-          })
-
-          let wrapH = $(el).height() // 自身高度
-          let scrollT = $(el).scrollTop() // 滚动距离
-          let isBottom = scrollT >= scrollH - wrapH
-          if (isBottom) {
-            binding.value && binding.value()
+        el.addEventListener('scroll', function () {
+          if (el.scrollTop >= el.scrollHeight - el.clientHeight) {
+            binding.value()
           }
-        }
-        $(el).on('scroll', _.throttle(scrollFn, 100))
+        })
       }
     }
   },
